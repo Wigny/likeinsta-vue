@@ -2,7 +2,7 @@
   <div>
     <form action>
       <div class="inline-flex-parent">
-        <img src="@/assets/like.svg" alt="Like" />
+        <Media class="media" :media="media"></Media>
         <textarea name="description" placeholder="Escreva uma descrição" />
       </div>
       <input name="place" type="text" placeholder="Adicionar localização" />
@@ -13,11 +13,19 @@
 </template>
 
 <script>
+import Media from "./Media.vue";
+
 export default {
+  components: {
+    Media
+  },
   data() {
     return {
-      image: null,
-      video: null
+      media: {
+        filename: "d10b9e84-9591-4d68-9c24-28feb34966aa.jpg",
+        mimetype: "image/jpeg",
+        url:          "https://likeinsta.blob.core.windows.net/files/d10b9e84-9591-4d68-9c24-28feb34966aa.jpg"
+      }
     };
   }
 };
@@ -36,9 +44,8 @@ form {
   flex-direction: column;
 }
 
-img,
-video {
-  height: 55px;
+.media {
+  width: 150px;
   padding-right: 10px;
 }
 

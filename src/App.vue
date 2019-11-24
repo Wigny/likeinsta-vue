@@ -18,8 +18,9 @@ export default {
     Header
   },
   data() {
+    const isFeed = false;
     return {
-      dynamicComponent: true ? Feed : NewPost // TODO: dynamic
+      dynamicComponent: isFeed ? Feed : NewPost // TODO: dynamic
     };
   }
 };
