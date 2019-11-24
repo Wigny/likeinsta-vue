@@ -10,7 +10,7 @@
         <img src="@/assets/more.svg" alt="Mais" />
       </header>
 
-      <img v-bind:src="post.image" alt="Post" />
+      <Media :media="post.media"></Media>
 
       <footer>
         <div class="actions">
@@ -31,48 +31,43 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
-export const GET_POSTS = gql`
-  subscription MyQuery {
-    posts(order_by: { createdAt: desc }) {
-      id
-      user {
-        name
-      }
-      place
-      image
-      likes
-      description
-      hashtags
-    }
-  }
-`;
+import Media from "./Media.vue";
 
 export default {
+  components: { Media },
   data() {
     return {
-      posts: [],
+      posts: [
+        {
+          user: { name: "Wígny" },
+          place: "Ji-Paraná",
+          media: {
+            filename: "d10b9e84-9591-4d68-9c24-28feb34966aa.jpg",
+            mimetype: "image/jpeg",
+            url:
+              "https://likeinsta.blob.core.windows.net/files/d10b9e84-9591-4d68-9c24-28feb34966aa.jpg"
+          },
+          likes: 1500,
+          description: "teste imagem",
+          hashtags: "#testando"
+        },
+        {
+          user: { name: "Wígny" },
+          place: "Ji-Paraná",
+          media: {
+            filename: "6a115b55-4f52-4c58-91f5-38f87fba6103.mp4",
+            mimetype: "video/mp4",
+            url:
+              "https://likeinsta.blob.core.windows.net/files/6a115b55-4f52-4c58-91f5-38f87fba6103.mp4"
+          },
+          likes: 3000,
+          description: "teste video",
+          hashtags: "#testando"
+        }
+      ],
       error: null
     };
-  },
-  apollo: {
-   $subscribe: {
-     posts: {
-       query: GET_POSTS,
-       result ({data: {posts}}) {
-         this.posts = posts
-       },
-     },
-   },
- },
-  // apollo: {
-  //   posts: {
-  //     query: GET_POSTS,
-  //     error(error) {
-  //       this.error = JSON.stringify(error.message);
-  //     }
-  //   }
-  // }
+  }
 };
 </script>
 
@@ -110,10 +105,6 @@ header {
   font-size: 11px;
   color: #666;
   margin-top: 3px;
-}
-
-article > img {
-  width: 100%;
 }
 
 footer {

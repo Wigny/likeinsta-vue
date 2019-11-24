@@ -1,19 +1,26 @@
 <template>
   <div id="app">
     <Header></Header>
-    <Feed></Feed>
+    <keep-alive>
+      <component :is="dynamicComponent"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
 import Feed from "./components/Feed.vue";
+import NewPost from "./components/NewPost.vue";
 
 export default {
   name: "app",
   components: {
-    Header,
-    Feed
+    Header
+  },
+  data() {
+    return {
+      dynamicComponent: true ? Feed : NewPost // TODO: dynamic
+    };
   }
 };
 </script>
